@@ -40,6 +40,8 @@ function getPosition(event: ethereum.Event, tokenId: BigInt): Position | null {
       position.withdrawnToken1 = ZERO_BD
       position.collectedFeesToken0 = ZERO_BD
       position.collectedFeesToken1 = ZERO_BD
+      position.collectedToken0 = ZERO_BD
+      position.collectedToken1 = ZERO_BD
       position.transaction = loadTransaction(event).id
       position.feeGrowthInside0LastX128 = positionResult.value8
       position.feeGrowthInside1LastX128 = positionResult.value9
@@ -173,11 +175,11 @@ export function handleCollect(event: Collect): void {
   if (token0 && token1 && bundle) {
     let amount0 = convertTokenToDecimal(event.params.amount0, token0.decimals)
     let amount1 = convertTokenToDecimal(event.params.amount1, token1.decimals)
-    position.collectedFeesToken0 = position.collectedFeesToken0.plus(amount0)
-    position.collectedFeesToken1 = position.collectedFeesToken1.plus(amount1)
+    position.collectedToken0 = position.collectedToken0.plus(amount0)
+    position.collectedToken1 = position.collectedToken1.plus(amount1)
 
-    position.collectedFeesToken0 = position.collectedFeesToken0.minus(position.withdrawnToken0)
-    position.collectedFeesToken1 = position.collectedFeesToken1.minus(position.withdrawnToken1)
+    position.collectedFeesToken0 = position.collectedToken0.minus(position.withdrawnToken0)
+    position.collectedFeesToken1 = position.collectedToken1.minus(position.withdrawnToken1)
 
     let newCollectUSD = amount0
       .times(token0.derivedETH.times(bundle.ethPriceUSD))
