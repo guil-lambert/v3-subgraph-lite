@@ -23,11 +23,13 @@ import {
 import { createTick, feeTierToTickSpacing } from '../utils/tick'
 
 export function handleInitialize(event: Initialize): void {
+  // update pool sqrt price and tick
   let pool = Pool.load(event.address.toHexString())
 
   if (pool) {
     pool.sqrtPrice = event.params.sqrtPriceX96
     pool.tick = BigInt.fromI32(event.params.tick)
+	pool.save()
     // update token prices
     let token0 = Token.load(pool.token0)
     let token1 = Token.load(pool.token1)
