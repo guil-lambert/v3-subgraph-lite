@@ -406,7 +406,8 @@ export function handleSwap(event: SwapEvent): void {
       token0.totalValueLockedUSD = token0.totalValueLocked.times(token0.derivedETH).times(bundle.ethPriceUSD)
       token1.totalValueLockedUSD = token1.totalValueLocked.times(token1.derivedETH).times(bundle.ethPriceUSD)
 
-      // create Swap event
+      // create Swap event - LITE = DO NOT track swaps
+      /*
       let transaction = loadTransaction(event)
       let swap = new Swap(transaction.id + '#' + pool.txCount.toString())
       swap.transaction = transaction.id
@@ -423,6 +424,7 @@ export function handleSwap(event: SwapEvent): void {
       swap.tick = BigInt.fromI32(event.params.tick)
       swap.sqrtPriceX96 = event.params.sqrtPriceX96
       swap.logIndex = event.logIndex
+      */
 
       // update fee growth
       let poolContract = PoolABI.bind(event.address)
@@ -475,7 +477,7 @@ export function handleSwap(event: SwapEvent): void {
       token1HourData.untrackedVolumeUSD = token1HourData.untrackedVolumeUSD.plus(amountTotalUSDTracked)
       token1HourData.feesUSD = token1HourData.feesUSD.plus(feesUSD)
 
-      swap.save()
+      //swap.save()
       token0DayData.save()
       token0HourData.save()
       token1DayData.save()
