@@ -14,6 +14,11 @@ export function handlePoolCreated(event: PoolCreated): void {
     return
   }
 
+  // temp fix https://etherscan.io/tx/0x83f11ad653a9cdee52e54db2365947c61dd054af250f7fcf52240967eea4095a
+  if (event.params.pool == Address.fromHexString('0x62c94e3772104b8883696b68cf9fb7bfc62ee036')) {
+    return
+  }
+
   // load factory
   let factory = Factory.load(FACTORY_ADDRESS)
   if (factory === null) {
