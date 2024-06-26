@@ -3,6 +3,12 @@ description: Uniswap is a decentralized protocol for automated token exchange on
 repository: https://github.com/Archmage-Finance/v3-subgraph
 schema:
   file: ./schema.graphql
+---
+features:
+  - grafting # feature name
+graft:
+  base: QmUNNKwNM4ShDBF7Y92cnXgWtZ7cqpRzZFy5i93aeTXqzA 
+  block: 19473580
 dataSources:
   - kind: ethereum/contract
     name: Factory
